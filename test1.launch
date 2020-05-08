@@ -1,0 +1,30 @@
+<launch>
+ <node name="ekf_gyro" pkg="robot_localization" type="ekf_localization_node" clear_params="true">
+  <param name="frequency" value="30"/>
+  <param name="sensor_timeout" value="0.5"/>
+  <param name ="two_d_mode" value="true"/>
+
+  <param name = "odom_frame" value = "odom"/>
+
+  <param name = "gyro" value ="torso_lift_imu/data">
+  <rosparam param = "gyro_config">
+   [ false, false, false,
+   true, true, true,
+   false, false, false,
+   false, false, false,
+   false, false, false]
+  </rosparam>
+
+  <param name = " accelerometer " value="/torso_lift_imu/data">
+  <rosparam param= "accelerometer_config">
+   [ false, false, false,
+   false, false, false,
+   false, false, false,
+   false, false, flase,
+   true, true, true ]
+  </rosparam>
+
+  <arg name = " topic_name " default = "/test_topic"/>
+  <node pkg = "rostopic" type = "rostopic" name =" rostopic_node" output="screen" args= " pub $(arg topic_name)/>
+</node>
+</launch>
